@@ -3,22 +3,23 @@ package com.kiswire.mariatomongo.web;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kiswire.mariatomongo.nosql.domain.MongoFda001;
 import com.kiswire.mariatomongo.nosql.domain.MongoFda001Repository;
 import com.kiswire.mariatomongo.rdb.domain.Machine001;
+import com.kiswire.mariatomongo.service.MongoFda001Service;
 
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @RestController
 public class MongoFdaController {
 
-	private MongoFda001Repository mongoFda001Repository;
-	
-	public MongoFdaController(MongoFda001Repository mongoFda001Repository) {
-		this.mongoFda001Repository = mongoFda001Repository;
-	}
+	private final MongoFda001Repository mongoFda001Repository;
+	private final MongoFda001Service mongoFda001Service;
 
 	@PostMapping("/mongo/001")
 	public String save() {
@@ -41,8 +42,23 @@ public class MongoFdaController {
 	}
 	
 	@GetMapping("/mongo/001")
-	public List<MongoFda001> findAll(){
+	public List<MongoFda001> findAll(){	
 		return mongoFda001Repository.findAll();
+	}
+	
+	@GetMapping("/mongo/001/machine/loc")
+	public List<MongoFda001> findByMachineLoc(){	
+		return mongoFda001Repository.mFindMachineLoc("부산공장");
+	}
+	
+	@GetMapping("/mongo/001/service/machine/loc")
+	public List<MongoFda001> findByServiceMachineLoc(){	
+		return mongoFda001Service.mFindMachineLoc("부산공장");
+	}
+	
+	@GetMapping("/mongo/001/service/machine/{id}")
+	public List<MongoFda001> findByServiceMachineId(@PathVariable Long id){	
+		return mongoFda001Service.mFindMachineId(id);
 	}
 }
 

@@ -6,8 +6,15 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import com.kiswire.mariatomongo.rdb.domain.Machine001;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Data
 @Document("fda001") // 컬렉션 이름
 public class MongoFda001 {
@@ -30,4 +37,6 @@ public class MongoFda001 {
 	private String fda001R0040;
 	
 	private Machine001 machine;
+	
+	
 }
